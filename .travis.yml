@@ -1,11 +1,18 @@
 dist: trusty
 language: cpp
 before_install:
-  - sudo add-apt-repository -y ppa:mati75/kadu-devel
   - sudo apt-get update -qq
   - sudo apt-get install qtbase5-dev-tools qtbase5-dev libqt5core5a cmake
-  - sudo apt-get install libinjeqt1 lissinjeqt-dev
-
+before_script:
+  - git clone https://github.com/vogel/injeqt.git
+  - cd injeqt
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr ..
+  - make
+  - make test
+  - sudo make install
+  - cd ..
 script:
   - mkdir build
   - cd build
